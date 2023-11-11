@@ -11,6 +11,3 @@ urlpatterns = [
     path('cuestionario/', views.mostrar_cuestionario, name='cuestionario')
 ]
 
-    
-   
-
