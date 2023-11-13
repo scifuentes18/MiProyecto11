@@ -5,93 +5,113 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WE HELP</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-</head>
-<body>
-    <header class="bg-primary text-white">
-        <nav class="navbar navbar-expand-lg navbar-dark">
-            <a class="navbar-brand" href="{% url 'home' %}">We Help</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'login' %}">Iniciar Sesión</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'signup' %}">Registrarse</a>
-                    </li>
-                </ul>
-            </div>
-        </nav>
-    </header>
-
-    <!-- Resto del contenido HTML sigue igual -->
-</body>
-</html>
-
-<!DOCTYPE html>
-<html>
-<head>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap">
     <style>
         body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Roboto', sans-serif;
+            background-color: #f3f3f3; /* Fondo gris claro */
+        }
+
+        header {
+            background-color: #66c2ff; /* Azul suave */
+            color: white;
+            padding: 10px;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar-brand {
+            font-size: 24px;
+        }
+
+        .navbar-nav {
+            margin-right: 20px;
+        }
+
+        .nav-link {
+            color: white;
+            margin: 0 10px;
+        }
+
+        .nav-link:hover {
+            text-decoration: underline;
+        }
+
+        .home-content {
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            height: 100vh;
-            margin: 0;
-            background-color: #b0e0e6; /* Celeste pastel usando el código hexadecimal */
-        }
-
-        h1 {
-            font-size: 48px;
-            color: black;
+            height: calc(100vh - 70px);
             text-align: center;
+            margin-top: -50px; /* Ajuste para subir el contenido */
         }
 
-        .boton {
-            width: 125px;
-            height: 125px;
-            background-color: #3498db;
-            margin: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+        .home-title {
+            font-size: 36px;
+            font-weight: bold;
+            margin-bottom: 20px;
         }
 
-        .boton a {
-            color: white;
-            text-decoration: none;
+        .register-button {
+            background-color: #85C7B6;
+            color: #333;
+            padding: 15px 30px; /* Aumento del tamaño del botón */
+            font-size: 20px; /* Aumento del tamaño del texto */
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
         }
-        
-        .boton a:hover {
+
+        .register-button:hover {
+            background-color: #6BB3A9;
+        }
+
+        .login-message {
+            margin-top: 30px; /* Ajuste para aumentar el espacio entre el título y el mensaje */
+            color: #333;
+            font-size: 18px; /* Aumento del tamaño del texto */
+        }
+
+        .login-button {
             color: #3498db;
+            text-decoration: none;
+            font-weight: bold;
+            margin-left: 5px;
+            font-size: 18px; /* Aumento del tamaño del texto */
+        }
+
+        .login-button:hover {
+            text-decoration: underline;
         }
     </style>
 </head>
 <body>
-    <h1>Te hacen bullying?</h1>
-    
-    <a href="#">
-        <div class="boton">
-            <p style="color: white;">Metodo 1</p>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark">
+            <a class="navbar-brand" href="{% url 'home' %}">We Help</a>
+        </nav>
+    </header>
+
+    <div class="home-content">
+        <h1 class="home-title">Comienza tu lucha contra la discriminación</h1>
+
+        <a class="btn btn-primary register-button" href="{% url 'signup' %}">Regístrate</a>
+
+        <div class="login-message">
+            ¿Ya posees una cuenta? <a class="login-button" href="{% url 'login' %}">Iniciar Sesión</a>
         </div>
-    </a>
-    
-    <a href="#">
-        <div class="boton">
-            <p style="color: white;">Metodo 2</p>
-        </div>
-    </a>
-    
-    <a href="#">
-        <div class="boton">
-            <p style="color: white;">Metodo 3</p>
-        </div>
-    </a>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
-
-
-
