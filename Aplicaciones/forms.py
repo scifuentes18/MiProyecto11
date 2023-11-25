@@ -9,8 +9,8 @@ class RegistroForm(UserCreationForm):
         model = Usuario
         fields = ['username', 'telefono', 'password1', 'password2']
 
-
 class CuestionarioForm(forms.ModelForm):
     class Meta:
         model = RespuestaCuestionario
         fields = '__all__'
+        widgets = {'categoria': forms.HiddenInput(), 'usuario': forms.HiddenInput()}

@@ -1,31 +1,39 @@
+# models.py
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+from django.core.exceptions import ValidationError
+
+from django.db import models
+from django.contrib.auth.models import AbstractUser
+from django.core.exceptions import ValidationError
+
 class Usuario(AbstractUser):
     telefono = models.CharField(max_length=15, blank=True)
 
-    # Agregar related_name para evitar conflictos
     groups = models.ManyToManyField(
         'self',
         verbose_name="groups",
         blank=True,
         help_text="The groups this user belongs to. A user will get all permissions granted to each of their groups.",
-        related_name="usuarios",
-        related_query_name="user",
+        related_name="usuario_groups",  # Cambiado a 'usuario_groups'
+        related_query_name="usuario_group",
     )
     user_permissions = models.ManyToManyField(
         'self',
         verbose_name="user permissions",
         blank=True,
         help_text="Specific permissions for this user.",
-        related_name="usuarios",
-        related_query_name="user",
+        related_name="usuario_permissions",  # Cambiado a 'usuario_permissions'
+        related_query_name="usuario_permission",
     )
-class Categoria(models.Model):
-    nombre = models.CharField(max_length=100)
 
-    def calcular_puntaje_y_categoria(self):
-        puntaje = self.pregunta_1 + self.pregunta_2 + self.pregunta_3
-        self.puntaje_total = puntaje
+
+class Categoria(models.Model):
+    nombre = models.CharField(max_length=255)
+    categoria = models.CharField(max_length=100, blank=True)
+
+    def calcular_puntaje_y_categoria(self, pregunta_1, pregunta_2, pregunta_3):
+        puntaje = pregunta_1 + pregunta_2 + pregunta_3
 
         if puntaje >= 10:
             self.categoria = "Discriminación por Género y Orientación Sexual"
@@ -45,10 +53,12 @@ class Categoria(models.Model):
             return "template_digital_ciberacoso.html"
         else:
             return "template_apariencia_fisica.html"
+        
+        
 
 class RespuestaCuestionario(models.Model):
     usuario = models.ForeignKey('Usuario', on_delete=models.CASCADE)
-    categoria = models.ForeignKey(Categoria, on_delete=models.CASCADE)
+    categoria = models.ForeignKey(Categoria, on_delete=models.CASCADE, null=True, blank=True)
 
     OPCIONES_PREGUNTA1 = [
         (1, "Sí, me gustaría hablar sobre cómo nos ven las personas."),
@@ -60,23 +70,22 @@ class RespuestaCuestionario(models.Model):
     ]
 
     OPCIONES_PREGUNTA2 = [
-
-            (1, "Me gustaría hablar sobre cómo nos ven las personas."),
-            (2, "Estoy interesado/a en aprender sobre cómo mantenerme seguro/a en línea."),
-            (3, "Me gustaría conocer recursos para personas con discapacidades."),
-            (4, "Me interesa explorar temas de género y orientación sexual."),
-            (5, "Me gustaría aprender sobre discriminación racial."),
-            (6, "Me gustaría conocer formas de superar la discriminación."),
-
+        (1, "Me gustaría hablar sobre cómo nos ven las personas."),
+        (2, "Estoy interesado/a en aprender sobre cómo mantenerme seguro/a en línea."),
+        (3, "Me gustaría conocer recursos para personas con discapacidades."),
+        (4, "Me interesa explorar temas de género y orientación sexual."),
+        (5, "Me gustaría aprender sobre discriminación racial."),
+        (6, "Me gustaría conocer formas de superar la discriminación."),
     ]
+
     OPCIONES_PREGUNTA3 = [ 
-            (1, "Experiencias de discriminación por apariencia física."),
-            (2, "Experiencias de discriminación en línea o ciberacoso."),
-            (3, "Experiencias de discriminación debido a una discapacidad."),
-            (4, "Experiencias de discriminación de género u orientación sexual."),
-            (5, "Experiencias de discriminación racial."),
-            (6, "Experiencias de discriminación en el lugar de trabajo o la educación."),
-            ]
+        (1, "Experiencias de discriminación por apariencia física."),
+        (2, "Experiencias de discriminación en línea o ciberacoso."),
+        (3, "Experiencias de discriminación debido a una discapacidad."),
+        (4, "Experiencias de discriminación de género u orientación sexual."),
+        (5, "Experiencias de discriminación racial."),
+        (6, "Experiencias de discriminación en el lugar de trabajo o la educación."),
+    ]
 
     pregunta_1 = models.IntegerField(
         verbose_name="¿Te gustaría compartir tus experiencias y obtener recursos relacionados con temas importantes?",
@@ -87,13 +96,10 @@ class RespuestaCuestionario(models.Model):
         verbose_name="De las opciones que seleccionaste en la pregunta anterior, ¿cuál te interesa más en este momento?",
         choices=OPCIONES_PREGUNTA2
     )
-    default= 3
-
+    
     pregunta_3 = models.IntegerField(
         verbose_name="¿Has tenido experiencias personales relacionadas con alguna de las siguientes categorías?",
         choices=OPCIONES_PREGUNTA3
-           
-        
     )
 
     pregunta_4 = models.CharField(
@@ -144,12 +150,18 @@ class RespuestaCuestionario(models.Model):
         ]
     )
 
-    puntaje_total = models.IntegerField(null=True, blank=True)
-    categoria = models.CharField(max_length=50, null=True, blank=True)
+    def clean(self):
+        # Validar que el usuario esté registrado
+        if not self.usuario_id:
+            raise ValidationError("El usuario debe estar registrado para responder al cuestionario.")
 
     def save(self, *args, **kwargs):
-        self.categoria.calcular_puntaje_y_categoria()
-        self.categoria_resultado = self.categoria.obtener_template_categoria()
-        super().save(*args, **kwargs)
+        if not self.categoria_id:
+            categoria_nombre = self.categoria.calcular_puntaje_y_categoria(
+                self.pregunta_1, self.pregunta_2, self.pregunta_3
+            )
+            nueva_categoria, _ = Categoria.objects.get_or_create(nombre=categoria_nombre)
+            self.categoria = nueva_categoria
 
+        super().save(*args, **kwargs)
 

@@ -1,13 +1,17 @@
+# urls.py
 from django.contrib import admin
 from django.urls import include, path
-from . import views
+from Aplicaciones.views import home, pagina1, formulario, signup, mostrar_cuestionario, vista_resultado
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.home, name='home'),
-    path('pagina/', views.pagina1, name='pagina1'),
-    path('login/', views.formulario, name='login'),
-    path('signup/', views.signup, name='signup'),
-    path('cuestionario/', views.mostrar_cuestionario, name='cuestionario')
+    path('', home, name='home'),
+    path('pagina/', pagina1, name='pagina1'),
+    path('login/', formulario, name='login'),
+    path('signup/', signup, name='signup'),
+    path('cuestionario/', mostrar_cuestionario, name='cuestionario'),
+    path('mostrar_cuestionario/', mostrar_cuestionario, name='mostrar_cuestionario'),
+    path('vista_resultado/<int:pk>/', vista_resultado, name='vista_resultado'),
+    # Agrega más rutas para otras vistas según sea necesario
 ]
 
