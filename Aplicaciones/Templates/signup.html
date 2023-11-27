@@ -1,5 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
+<<<<<<< HEAD
+=======
+
+>>>>>>> 0771c18659a3602f5df4adcb586b93171e4256b4
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,28 +11,52 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
         body {
+<<<<<<< HEAD
             background-color: #f3f3f3;
             color: #333;
         }
 
         nav {
             background-color: #66c2ff;
+=======
+            margin: 0;
+            padding: 0;
+            font-family: 'Roboto', sans-serif;
+            background-color: #f3f3f3; 
+            color: #333;
+        }
+
+        header {
+            background-color: #66c2ff; 
+            color: white;
+            padding: 10px;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+>>>>>>> 0771c18659a3602f5df4adcb586b93171e4256b4
         }
 
         .navbar-brand {
             font-size: 24px;
         }
 
+<<<<<<< HEAD
         .navbar-toggler-icon {
             background-color: white;
         }
 
+=======
+>>>>>>> 0771c18659a3602f5df4adcb586b93171e4256b4
         .navbar-nav {
             margin-right: 20px;
         }
 
         .nav-link {
             color: white;
+<<<<<<< HEAD
         }
 
         .card {
@@ -98,6 +126,73 @@
     </main>
 
     <footer class="bg-dark text-white text-center py-3 fixed-bottom">
+=======
+            margin: 0 10px;
+        }
+
+        .nav-link:hover {
+            text-decoration: underline;
+        }
+
+        .main-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: calc(100vh - 70px);
+            text-align: center;
+            margin-top: -50px; 
+        }
+
+        .main-title {
+            font-size: 36px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .register-button {
+            background-color: #66c2ff; 
+            color: white;
+            padding: 15px 30px; 
+            font-size: 20px; 
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            text-decoration: none; 
+        }
+
+        .register-button:hover {
+            background-color: #4fa3ff; 
+        }
+
+        .footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark">
+            <a class="navbar-brand" href="/">We HELP</a>
+        </nav>
+    </header>
+
+    <div class="main-content">
+        <h2 class="main-title">Registro</h2>
+        <form method="post" action="{% url 'signup' %}">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-primary register-button">Continuar</button>
+        </form>
+    </div>
+
+    <footer class="footer">
+>>>>>>> 0771c18659a3602f5df4adcb586b93171e4256b4
         <p>&copy; 2023 We HELP</p>
     </footer>
 
@@ -105,4 +200,8 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
+<<<<<<< HEAD
+=======
+
+>>>>>>> 0771c18659a3602f5df4adcb586b93171e4256b4
 </html>
