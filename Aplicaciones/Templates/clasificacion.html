@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WE HELP</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Roboto', sans-serif;
+            background-color: #f3f3f3; /* Fondo gris claro */
+        }
+
+        header {
+            background-color: #66c2ff; /* Azul suave */
+            color: white;
+            padding: 10px;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar-brand {
+            font-size: 24px;
+        }
+
+        .navbar-nav {
+            margin-right: 20px;
+        }
+
+        .nav-link {
+            color: white;
+            margin: 0 10px;
+        }
+
+        .nav-link:hover {
+            text-decoration: underline;
+        }
+
+        h1 {
+            font-size: 36px;
+            color: #333; /* Texto oscuro */
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .boton-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .boton {
+            width: 150px;
+            height: 150px;
+            background-color: #85C7B6; /* Verde azulado suave */
+            margin: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s;
+            text-align: center;
+        }
+
+        .boton a {
+            color: #333; /* Texto oscuro */
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .boton:hover {
+            background-color: #6BB3A9; /* Cambio de color al pasar el mouse */
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark">
+            <a class="navbar-brand" href="{% url 'home' %}">We Help</a>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                    </li>
+                    <li class="nav-item">
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <h1>Recursos recomendados según tus resultados:
+        Discriminación por apariencia fisica
+    </h1>
+
+    <div class="boton-container">
+        <a href="https://www.youtube.com/watch?v=2IKlpD37CPI">
+            <div class="boton">
+                <p>Charlas</p>
+            </div>
+        </a>
+
+        <a href="https://www.youtube.com/watch?v=kQHFn6527lI">
+            <div class="boton">
+                <p>Videos Motivacionales</p>
+            </div>
+        </a>
+
+        <a href="https://www.youtube.com/watch?v=W2FMosrXv7Q">
+            <div class="boton">
+                <p>Videos de Autoayuda</p>
+            </div>
+        </a>
+    </div>
+</body>
+</html>
